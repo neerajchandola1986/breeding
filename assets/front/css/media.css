@@ -1,0 +1,19 @@
+@media (max-width:991px){
+.navbar-light .navbar-toggler{border:none;}
+.navbar-light .navbar-nav .nav-link{padding: 5px 10px;}
+.navbar_custum ul li a{padding: 25px 10px;}
+}
+@media (max-width:767px){
+.navbar_custum ul {float: none;margin: 10px auto 0;left: 0;right: 0;display: table;}
+.navbar_custum ul, .navbar_custum ul li{height:44px;}
+.navbar_custum ul li a{padding: 0px 10px;float:none; line-height:44px;}
+}
+@media (max-width:575px){
+.navbar {line-height: 40px; height:80x;}
+.navbar-collapse{position: absolute;background: #ccc;width: 100%;z-index: 1000;top: 77px;}
+.navbar h3 a {margin-top: 12px;border-left: none;}
+}
+@media (max-width:375px){
+.navbar-brand img{max-height: 35px;}
+.navbar_custum h3 a{font-size:20px;}
+}
