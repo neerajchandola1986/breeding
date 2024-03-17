@@ -39,16 +39,16 @@
   <body class="skin-blue sidebar-mini">
     <div class="wrapper">
       
-      <header class="main-header" style="background-color:#222d32;">
+      <header class="main-header" style="background-color:#343957;">
         <!-- Logo -->
-        <a href="<?php echo base_url(); ?>" class="logo" style="background-color:#222d32;">
+        <a href="<?php echo base_url(); ?>" class="logo" style="background-color:#343957;">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini">BCHMO CRM</span>
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg"><b>BCHMO CRM</b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" role="navigation" style="background-color:#222d32;">
+        <nav class="navbar navbar-static-top" role="navigation" style="background-color:#343957;">
           <!-- Sidebar toggle button-->
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
@@ -85,7 +85,7 @@
         </nav>
       </header>
       <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar">
+      <aside class="main-sidebar" style="background-color:#343957;">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
           <div class="user-panel">
