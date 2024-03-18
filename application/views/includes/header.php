@@ -2,8 +2,9 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>CRM</title>
+    <title>Greg Broderick</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+	<link rel="icon" href="<?php echo base_url(); ?>assets/images/favicon.png" sizes="32x32" />
     <!-- Bootstrap 3.3.4 -->
     <link href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
     <!-- FontAwesome 4.3.0 -->
@@ -43,9 +44,9 @@
         <!-- Logo -->
         <a href="<?php echo base_url(); ?>" class="logo" style="background-color:#343957;">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini">BCHMO CRM</span>
+          <span class="logo-mini"><img src="<?php echo base_url(); ?>assets/images/favicon.png" width="40" class="img-responsive" style="margin:8px 0px 0px 8px;"/></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>BCHMO CRM</b></span>
+          <span class="logo-lg"><table><tr><td><img src="<?php echo base_url(); ?>assets/images/favicon.png"  class="img-responsive" width="40"/></td><td> <b>&nbsp;Greg Broderick</b></td></tr></table></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation" style="background-color:#343957;">

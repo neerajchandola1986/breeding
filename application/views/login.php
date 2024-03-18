@@ -29,7 +29,7 @@
     <div class="login-box">
       <div class="login-logo">
         <h1 style="color:#FFF;">
-         <center><img src="<?php echo base_url(); ?>assets/images/BCHMO-Logo1.png"  class="img-responsive" /></center>
+         <center><img src="<?php echo base_url(); ?>assets/images/logo.png"  class="img-responsive" /></center>
 		</h1>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
