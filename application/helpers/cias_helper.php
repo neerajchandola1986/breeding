@@ -257,4 +257,41 @@ function getproject()
 	return $data;
 }
 
+
+
+
+
+
+
+
+function getStaffList()
+{
+	$ci =& get_instance(); 
+	$ci->load->database();
+	$sql = "SELECT * FROM `tbl_users` WHERE roleId='3' order by createdDtm DESC"; 
+	$query = $ci->db->query($sql);
+	$data = $query->result();
+	return $data;
+}
+
+function getSMList()
+{
+	$ci =& get_instance(); 
+	$ci->load->database();
+	$sql = "SELECT * FROM `tbl_users` WHERE roleId='2' order by createdDtm DESC LIMIT 0,5"; 
+	$query = $ci->db->query($sql);
+	$data = $query->result();
+	return $data;
+}
+
+function getLeadListDash()
+{
+	$ci =& get_instance(); 
+	$ci->load->database();
+	$sql = "SELECT * FROM `tbl_leads` LIMIT 0,5"; 
+	$query = $ci->db->query($sql);
+	$data = $query->result();
+	return $data;
+}
+
 ?>

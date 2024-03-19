@@ -2,8 +2,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <i class="fa fa-users"></i> Staff Management
-        <small>Add / Edit Staff</small>
+        <i class="fa fa-users"></i> User Management
+        <small>Add / Edit User</small>
       </h1>
     </section>
     
@@ -19,7 +19,7 @@
                     </div><!-- /.box-header -->
                     <!-- form start -->
                     <?php $userdata = $userdata[0]; ?>
-                    <form role="form" id="addUser" action="<?php echo base_url() ?>records/editstaff/<?php echo $userdata->userId ?>" method="post">
+                    <form role="form" id="addUser" action="<?php echo base_url() ?>records/edituser/<?php echo $userdata->userId ?>" method="post">
                         <div class="box-body">
                             <div class="row">
                                 

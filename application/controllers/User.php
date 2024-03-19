@@ -23,8 +23,18 @@ class User extends BaseController
     /**
      * This function used to load the first screen of the user
      */
-    public function index()
+    public function index($id="")
     {
+		$this->load->model('user_model');
+		$role = $this->session->userdata ( 'role' );
+		$userId = $this->session->userdata ( 'userId' );		
+		$data['role'] = $role;
+		$data['userId'] = $userId;
+		//$userInfo = getpatient_info_by_userid($userId);
+		$data['patient_id'] = $userInfo[0]->id;
+		
+		$data['id']	=	$id;
+
         $this->global['pageTitle'] = 'CodeInsect : Dashboard'; 
 		$this->session->unset_userdata('otp_session');
 		$this->session->unset_userdata('otp_email');
@@ -33,8 +43,15 @@ class User extends BaseController
 			$data['startdate_compare'] = $_REQUEST['search_startdate'];
 			$data['enddate_compare'] = $_REQUEST['search_enddate'];
 		}
+		$data['staffRecords'] = getStaffList();		
+		$data['userRecords'] = getSMList();	
+		//$data['LeadRecords'] = getLeadListDash();
+		//$data['ReminderRecords'] = getRemindersByUser($userId);
+		//$data['invoiceRecords'] = getAllInvoices($userId);
+		//$data['PORecords'] = getAllLeads($userId);
         $this->loadViews("dashboard", $this->global, $data , NULL);
     }
+	
 	
 	
 	/**

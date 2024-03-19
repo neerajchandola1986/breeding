@@ -309,11 +309,19 @@ class Records extends BaseController
 			$fname = ucwords(strtolower($this->input->post('fname')));
 			$lname = ucwords(strtolower($this->input->post('lname')));
 			$email = $this->input->post('email');
-			$password = rand(111111,999999);
+			//$password = rand(111111,999999);
+			$password = $this->input->post('password');
 			$roleId = 3;
 			$mobile = $this->input->post('mobile'); 
+			$buisness_name = $this->input->post('buisness_name'); 
+			$suburb = $this->input->post('suburb'); 
+			$state_name = $this->input->post('state_name'); 
+			$postcode = $this->input->post('postcode'); 
+			$address = $this->input->post('address');
+			$address2 = $this->input->post('address2');
+			$country = $this->input->post('country');
 			$ref = 1;              
-			$userInfo = array('email'=>$email, 'password'=>base64_encode($password), 'roleId'=>$roleId, 'name'=> $fname, 'last_name'=>$lname ,'mobile'=>$mobile, 'createdBy'=>$this->session->userdata('userId'), 'createdDtm'=>date('Y-m-d H:i:s'));
+			$userInfo = array('email'=>$email, 'password'=>base64_encode($password), 'roleId'=>$roleId, 'name'=> $fname, 'last_name'=>$lname ,'mobile'=>$mobile, 'buisness_name'=>$buisness_name, 'suburb'=>$suburb, 'state_name'=>$state_name, 'postcode'=>$postcode, 'address' => addslashes($address), 'address2' => addslashes($address2), 'country' => $country, 'createdBy'=>$this->session->userdata('userId'), 'createdDtm'=>date('Y-m-d H:i:s'));
 			$result_id_inserted = $this->user_model->addNewUser($userInfo);
 			############################################			
 			$this->session->set_flashdata('success', 'New staff member created successfully');
@@ -385,11 +393,25 @@ class Records extends BaseController
 			$lname = (($this->input->post('lname')));
 			$mobile = $this->input->post('mobile'); 
 			$user_status = $this->input->post('user_status');   
-			$email = $this->input->post('email');    
+			$email = $this->input->post('email');
+			$buisness_name = $this->input->post('buisness_name'); 
+			$suburb = $this->input->post('suburb'); 
+			$state_name = $this->input->post('state_name'); 
+			$postcode = $this->input->post('postcode'); 
+			$address = $this->input->post('address');
+			$address2 = $this->input->post('address2');
+			$country = $this->input->post('country');
 			$userInfo = array(
 				'name' => $fname,
 				'last_name' => $lname,
 				'mobile' => $mobile,
+				'buisness_name' => $buisness_name,
+				'suburb' => $suburb,
+				'state_name' => $state_name,
+				'postcode' => $postcode,				
+				'address' => addslashes($address),
+				'address2' => addslashes($address2),
+				'country' => $country,
 				'updatedBy'=>$this->session->userdata('userId'),
 				'isDeleted'=>$user_status,
 				'updatedDtm'=>date('Y-m-d H:i:s'),
@@ -423,6 +445,158 @@ class Records extends BaseController
 		$userlist = $this->user_model->delete_staff($id);
 		}
 		redirect(base_url().'records/staffListing');
+	}
+
+
+
+	public function adduser()
+	{
+		if(!$this->session->userdata('userId'))
+		{
+			redirect(base_url());
+		}
+		
+		if ($this->input->server('REQUEST_METHOD') === 'POST')
+        {
+			$fname = ucwords(strtolower($this->input->post('fname')));
+			$lname = ucwords(strtolower($this->input->post('lname')));
+			$email = $this->input->post('email');
+			//$password = rand(111111,999999);
+			$password = $this->input->post('password');
+			$roleId = 2;
+			$mobile = $this->input->post('mobile'); 
+			$buisness_name = $this->input->post('buisness_name'); 
+			$suburb = $this->input->post('suburb'); 
+			$state_name = $this->input->post('state_name'); 
+			$postcode = $this->input->post('postcode'); 
+			$address = $this->input->post('address');
+			$address2 = $this->input->post('address2');
+			$country = $this->input->post('country');
+			          
+			$userInfo = array('email'=>$email, 'password'=>base64_encode($password), 'roleId'=>$roleId, 'name'=> $fname, 'last_name'=>$lname ,'mobile'=>$mobile, 'buisness_name'=>$buisness_name, 'suburb'=>$suburb, 'state_name'=>$state_name, 'postcode'=>$postcode, 'address' => addslashes($address), 'address2' => addslashes($address2), 'country' => $country, 'createdBy'=>$this->session->userdata('userId'), 'createdDtm'=>date('Y-m-d H:i:s'));
+			$result_id_inserted = $this->user_model->addNewUser($userInfo);
+			############################################			
+			$this->session->set_flashdata('success', 'User added successfully');
+			redirect(base_url().'records/userListing');
+		}
+		$data['roles'] = $this->user_model->getUserRoles();
+		$this->loadViews("adduser", $this->global, $data, NULL);
+		
+		
+	}
+	
+	
+	function userListing()
+    {
+        if(!$this->session->userdata('userId'))
+		{
+			redirect(base_url());
+		}
+        else
+        {
+            $this->load->model('user_model');     
+            $searchText = $this->input->post('searchText');
+            $data['searchText'] = $searchText;	
+			$this->load->library('pagination');
+			$config = array();
+			$config["base_url"] = base_url() . "/records/userListing/";
+			$config["total_rows"] = $this->user_model->userListingCount($_REQUEST);
+			$config["per_page"] = 20;
+			$config["uri_segment"] = 3;
+			$config ['num_links'] = 5;
+			$config ['full_tag_open'] = '<nav><ul class="pagination">';
+			$config ['full_tag_close'] = '</ul></nav>';
+			$config ['first_tag_open'] = '<li class="arrow">';
+			$config ['first_link'] = 'First';
+			$config ['first_tag_close'] = '</li>';
+			$config ['prev_link'] = 'Previous';
+			$config ['prev_tag_open'] = '<li class="arrow">';
+			$config ['prev_tag_close'] = '</li>';
+			$config ['next_link'] = 'Next';
+			$config ['next_tag_open'] = '<li class="arrow">';
+			$config ['next_tag_close'] = '</li>';
+			$config ['cur_tag_open'] = '<li class="active"><a href="#">';
+			$config ['cur_tag_close'] = '</a></li>';
+			$config ['num_tag_open'] = '<li>';
+			$config ['num_tag_close'] = '</li>';
+			$config ['last_tag_open'] = '<li class="arrow">';
+			$config ['last_link'] = 'Last';
+			$config ['last_tag_close'] = '</li>';
+			###########################################################################
+			$this->pagination->initialize($config);
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			$data['userRecords'] = $this->user_model->userListing($_REQUEST,$config["per_page"], $page);
+			$data["links"] = $this->pagination->create_links();
+			$data["total_rows"] = $config["total_rows"];
+            $this->loadViews("users", $this->global, $data, NULL);
+        }
+	}
+	
+	public function edituser($id="")
+	{
+		if(!$this->session->userdata('userId'))
+		{
+			redirect(base_url());
+		}
+		
+		if ($this->input->server('REQUEST_METHOD') === 'POST')
+        {
+			$fname = (($this->input->post('fname')));
+			$lname = (($this->input->post('lname')));
+			$mobile = $this->input->post('mobile'); 
+			$user_status = $this->input->post('user_status');   
+			$email = $this->input->post('email');
+			$buisness_name = $this->input->post('buisness_name'); 
+			$suburb = $this->input->post('suburb'); 
+			$state_name = $this->input->post('state_name'); 
+			$postcode = $this->input->post('postcode'); 
+			$address = $this->input->post('address');
+			$address2 = $this->input->post('address2');
+			$country = $this->input->post('country');
+			$userInfo = array(
+				'name' => $fname,
+				'last_name' => $lname,
+				'mobile' => $mobile,
+				'buisness_name' => $buisness_name,
+				'suburb' => $suburb,
+				'state_name' => $state_name,
+				'postcode' => $postcode,				
+				'address' => addslashes($address),
+				'address2' => addslashes($address2),
+				'country' => $country,
+				'updatedBy'=>$this->session->userdata('userId'),
+				'isDeleted'=>$user_status,
+				'updatedDtm'=>date('Y-m-d H:i:s'),
+				'email'=>$email
+			);
+			$result = $this->user_model->editUser($userInfo,$id);
+			
+			if(trim($this->input->post('password')) !="")
+			{
+				$this->user_model->editUser(array("password"=>base64_encode(trim($this->input->post('password')))),$id);
+			}
+			############################################			
+			$this->session->set_flashdata('success', 'User updated successfully');
+			redirect(base_url().'records/editUser/'.$id);
+		}
+		$data['roles'] = $this->user_model->getUserRoles();
+		$data['userdata'] = $this->user_model->getUserInfo($id);
+		$this->loadViews("editUser", $this->global, $data, NULL);
+		
+		
+	}
+	
+	public function deleteuser($id)
+	{
+		if(!$this->session->userdata('userId'))
+		{
+			redirect(base_url());
+		}
+		if($id>0)
+		{
+		$userlist = $this->user_model->delete_user($id);
+		}
+		redirect(base_url().'records/userListing');
 	}
 	
 	

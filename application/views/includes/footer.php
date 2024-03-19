@@ -1,10 +1,8 @@
 
 
     <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-          <b><a href="https://www.freelancer.in/u/Max01" target="_new">Max01</a></b> Admin System | Version 1.0
-        </div>
-        <strong>Copyright &copy; <?php echo date('Y'); ?> <a href="<?php echo base_url(); ?>">CRM</a>.</strong> All rights reserved.
+        
+        <strong>Copyright &copy; <?php echo date('Y'); ?> <a href="<?php echo base_url(); ?>">Greg Broderick</a>.</strong> All rights reserved.
     </footer>
     
     <!-- jQuery UI 1.11.2 -->

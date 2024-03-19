@@ -93,7 +93,7 @@
         </div>
     </section>
     
-    <section class="content-header">
+    <!-- <section class="content-header">
       <h1>
         Change Profile Information
       </h1>
@@ -101,9 +101,9 @@
     <section class="content">
         <div class="row">
             <div class="col-md-4">
-              <!-- general form elements -->
+              
                 <div class="box box-primary">
-                    <!-- form start -->
+                   
                     <?php $getmobile =  getuser_info($this->session->userdata('userId')); ?>
                     <form role="form" action="<?php echo base_url() ?>user/editprofile" method="post">
                         <div class="box-body">
@@ -121,7 +121,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div><!-- /.box-body -->
+                        </div>
                         <div class="box-footer">
                             <input type="submit" class="btn btn-primary" value="Update" />
                         </div>
@@ -129,6 +129,6 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     
 </div>

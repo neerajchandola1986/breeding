@@ -47,11 +47,89 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label for="email">Password</label>
+                                        <input type="password" class="form-control" required id="password"  name="password" maxlength="30">
+                                    </div>
+                                </div>
+                            </div>
+
+							<div class="row">
+								<div class="col-md-6">
+                                    <div class="form-group">
                                         <label for="email">Mobile</label>
                                         <input type="text" class="form-control" required id="email"  name="mobile" maxlength="15">
                                     </div>
                                 </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+									<label for="fname">Company</label>
+                                    <input type="text" class="form-control" id="buisness_name" name="buisness_name" maxlength="255">
+                                        
+                                    </div>
+                                </div>
                             </div>
+							<div class="row">					
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+									<label for="fname">Address</label>
+                                    <input type="text" class="form-control"  id="address"  name="address" maxlength="50">
+                                        
+                                    </div>
+                                </div>
+
+								<div class="col-md-6">
+                                    <div class="form-group">
+									<label for="fname">Address Line 2</label>
+                                    <input type="text" class="form-control"  id="address2"  name="address2" maxlength="50">
+                                        
+                                    </div>
+                                </div>
+								
+
+                            </div>
+
+							<div class="row">					
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">City</label>
+                                        <input type="text" class="form-control"  id="suburb"  name="suburb" maxlength="50">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+									<label for="fname">State</label>
+                                    <input type="text" class="form-control"  id="state_name"  name="state_name" maxlength="50">
+                                        
+                                    </div>
+                                </div>
+								
+
+                            </div>
+
+							<div class="row">
+							
+								<div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Zip</label>
+                                        <input type="text" class="form-control"  id="postcode"  name="postcode" maxlength="50">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+									<label for="fname">Country</label>
+                                    <input type="text" class="form-control"  id="country"  name="country" maxlength="50">
+                                        
+                                    </div>
+                                </div>
+								
+
+                            </div>
+
+							
                         </div><!-- /.box-body -->
     
                         <div class="box-footer">

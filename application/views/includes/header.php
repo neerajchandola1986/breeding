@@ -101,38 +101,29 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="treeview">
-              <a href="<?php echo base_url(); ?>user/index">
+			<li class="treeview">
+              <a href="<?php echo base_url(); ?>dashboard">
                 <i class="fa fa-list"></i>
-                <span>Overall Stats</span>
+                <span>Dashboard</span>
               </a>
             </li>
+            
             <?php if($this->session->userdata ( 'role' ) == 1){ ?>
             <li class="treeview">
               <a href="<?php echo base_url(); ?>records/staffListing">
                 <i class="fa fa-list"></i>
-                <span>Staff List</span>
+                <span>Manage Staff</span>
               </a>
             </li>
             <li class="treeview">
-              <a href="<?php echo base_url(); ?>records/planslist">
+              <a href="<?php echo base_url(); ?>records/userListing">
                 <i class="fa fa-list"></i>
-                <span>Agency List</span>
+                <span>Manage User</span>
               </a>
             </li>
             <?php } ?>
-            <li class="treeview">
-              <a href="<?php echo base_url(); ?>records/manageproject">
-                <i class="fa fa-list"></i>
-                <span>Manage Project</span>
-              </a>
-            </li>
-            <!--<li class="treeview">
-              <a href="<?php echo base_url(); ?>records/managevolunteer">
-                <i class="fa fa-list"></i>
-                <span>Manage Volunteer</span>
-              </a>
-            </li>-->
+            
+           
             <li class="treeview">
               <a href="<?php echo base_url(); ?>loadChangePass">
                 <i class="fa fa-list"></i>
