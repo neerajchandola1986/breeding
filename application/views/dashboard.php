@@ -153,7 +153,7 @@
 				{
 					$staff_id = $this->session->userdata('userId');
 				}
-				//echo count(getLeadListDash());?>0</h3>
+				echo count(getBookingList());?></h3>
 
               <p>Bookings</p>
             </div>
@@ -173,18 +173,16 @@
                       <th>Mare Name</th>
 					  <th>Microchip Number</th>
 					  <th>Payment Type</th>
-					  <th>Status</th>        
+					     
                     </tr> 
                     <?php
-                    if(!empty($LeadRecords))
+                    if(!empty($bookingRecords))
                     {
 						$i=1;
-                        foreach($LeadRecords as $record)
+                        foreach($bookingRecords as $record)
                         {
 							$manager_id = $record->user_id;
 							$manager_info = getuser_info($manager_id);
-
-							$lead_info = getLead_info($record->id);
 
 							
 							
@@ -192,14 +190,13 @@
                     ?>
                     <tr>
                       <td><?php echo $page+$i; ?></td>
-					  <td><?php echo $record->id ?></td>
-					  <td><?php echo $record->id ?></td>
-					  <td><?php echo $record->id ?></td>
-					  <td><?php echo $record->id ?></td>
-					  <td><?php echo ($record->created_at?date('m/d/Y',strtotime($record->created_at)):'') ?></td>
-                      <td><?php echo $manager_info['name']." ".$manager_info['last_name'] ?></td>
-					  <td><?php echo (($record->status=='1')?'Completed':'Open'); ?></td>
-                      
+					  <td><?php echo date('m/d/Y',strtotime($record->booking_date)) ?></td>
+					  <td><?php echo $record->booking_type ?></td>
+					  <td><?php echo $record->stallion ?></td>
+					  <td><?php echo $record->mare_name ?></td>
+					  <td><?php echo $record->microchip_number ?></td>
+					  <td><?php echo $record->payment_type ?></td>
+					    
 					  
                               
                      

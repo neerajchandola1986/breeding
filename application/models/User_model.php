@@ -1000,14 +1000,14 @@ class User_model extends CI_Model
     {
         $this->db->select('BaseTbl.*');
         $this->db->from('tbl_users as BaseTbl');
-        $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
-		$this->db->where('BaseTbl.roleId',2);
+       // $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
+		//$this->db->where('BaseTbl.roleId',2);
 		if(!empty($searchText['searchText']) && $searchText['searchText'] !="") 
 		{
 			$likeCriteria = "(BaseTbl.name  LIKE '%".trim($searchText['searchText'])."%' OR BaseTbl.last_name  LIKE '%".trim($searchText['searchText'])."%' OR BaseTbl.email  LIKE '%".trim($searchText['searchText'])."%')";
             $this->db->where($likeCriteria);
         }
-		$this->db->where('BaseTbl.createdBy',$this->session->userdata('userId'));
+		//$this->db->where('BaseTbl.createdBy',$this->session->userdata('userId'));
         $query = $this->db->get();
         return count($query->result());
     }
@@ -1015,13 +1015,41 @@ class User_model extends CI_Model
     {
         $this->db->select('BaseTbl.*');
         $this->db->from('tbl_users as BaseTbl');
-        $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
+       // $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
 		$this->db->where('BaseTbl.roleId',2);
 		if(!empty($searchText['searchText']) && $searchText['searchText'] !="") {
 			$likeCriteria = "(BaseTbl.name  LIKE '%".trim($searchText['searchText'])."%' OR BaseTbl.last_name  LIKE '%".trim($searchText['searchText'])."%' OR BaseTbl.email  LIKE '%".trim($searchText['searchText'])."%')";
             $this->db->where($likeCriteria);
         }
-		$this->db->where('BaseTbl.createdBy',$this->session->userdata('userId'));
+		//$this->db->where('BaseTbl.createdBy',$this->session->userdata('userId'));
+        $this->db->limit($page, $segment);
+        $query = $this->db->get();
+        $result = $query->result();        
+        return $result;
+    }
+
+	function bookingListingCount($searchText = '')
+    {
+        $this->db->select('BaseTbl.*');
+        $this->db->from('tbl_booking as BaseTbl');       
+		if(!empty($searchText['searchText']) && $searchText['searchText'] !="") 
+		{
+			$likeCriteria = "(BaseTbl.name  LIKE '%".trim($searchText['searchText'])."%' OR BaseTbl.last_name  LIKE '%".trim($searchText['searchText'])."%' OR BaseTbl.email  LIKE '%".trim($searchText['searchText'])."%')";
+            $this->db->where($likeCriteria);
+        }		
+        $query = $this->db->get();
+        return count($query->result());
+    }
+	function bookingListing($searchText = '', $page, $segment)
+    {
+        $this->db->select('BaseTbl.*');
+        $this->db->from('tbl_booking as BaseTbl');
+       
+		if(!empty($searchText['searchText']) && $searchText['searchText'] !="") {
+			$likeCriteria = "(BaseTbl.name  LIKE '%".trim($searchText['searchText'])."%' OR BaseTbl.last_name  LIKE '%".trim($searchText['searchText'])."%' OR BaseTbl.email  LIKE '%".trim($searchText['searchText'])."%')";
+            $this->db->where($likeCriteria);
+        }	
+		$this->db->order_by('created_at', 'desc');
         $this->db->limit($page, $segment);
         $query = $this->db->get();
         $result = $query->result();        

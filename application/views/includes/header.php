@@ -122,6 +122,13 @@
               </a>
             </li>
             <?php } ?>
+
+			<li class="treeview">
+              <a href="<?php echo base_url(); ?>records/bookingListing">
+                <i class="fa fa-list"></i>
+                <span>Manage Bookings</span>
+              </a>
+            </li>
             
            
             <li class="treeview">

@@ -598,6 +598,52 @@ class Records extends BaseController
 		}
 		redirect(base_url().'records/userListing');
 	}
+
+	function bookingListing()
+    {
+        if(!$this->session->userdata('userId'))
+		{
+			redirect(base_url());
+		}
+        else
+        {
+            $this->load->model('user_model');     
+            $searchText = $this->input->post('searchText');
+            $data['searchText'] = $searchText;	
+			$this->load->library('pagination');
+			$config = array();
+			$config["base_url"] = base_url() . "/records/bookingListing/";
+			$config["total_rows"] = $this->user_model->bookingListingCount($_REQUEST);
+			$config["per_page"] = 20;
+			$config["uri_segment"] = 3;
+			$config ['num_links'] = 5;
+			$config ['full_tag_open'] = '<nav><ul class="pagination">';
+			$config ['full_tag_close'] = '</ul></nav>';
+			$config ['first_tag_open'] = '<li class="arrow">';
+			$config ['first_link'] = 'First';
+			$config ['first_tag_close'] = '</li>';
+			$config ['prev_link'] = 'Previous';
+			$config ['prev_tag_open'] = '<li class="arrow">';
+			$config ['prev_tag_close'] = '</li>';
+			$config ['next_link'] = 'Next';
+			$config ['next_tag_open'] = '<li class="arrow">';
+			$config ['next_tag_close'] = '</li>';
+			$config ['cur_tag_open'] = '<li class="active"><a href="#">';
+			$config ['cur_tag_close'] = '</a></li>';
+			$config ['num_tag_open'] = '<li>';
+			$config ['num_tag_close'] = '</li>';
+			$config ['last_tag_open'] = '<li class="arrow">';
+			$config ['last_link'] = 'Last';
+			$config ['last_tag_close'] = '</li>';
+			###########################################################################
+			$this->pagination->initialize($config);
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			$data['userRecords'] = $this->user_model->bookingListing($_REQUEST,$config["per_page"], $page);
+			$data["links"] = $this->pagination->create_links();
+			$data["total_rows"] = $config["total_rows"];
+            $this->loadViews("bookings", $this->global, $data, NULL);
+        }
+	}
 	
 	
 	

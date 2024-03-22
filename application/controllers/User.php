@@ -45,7 +45,7 @@ class User extends BaseController
 		}
 		$data['staffRecords'] = getStaffList();		
 		$data['userRecords'] = getSMList();	
-		//$data['LeadRecords'] = getLeadListDash();
+		$data['bookingRecords'] = getBookingList();
 		//$data['ReminderRecords'] = getRemindersByUser($userId);
 		//$data['invoiceRecords'] = getAllInvoices($userId);
 		//$data['PORecords'] = getAllLeads($userId);
