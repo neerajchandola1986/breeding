@@ -129,6 +129,20 @@
 
                             </div>
 
+							<div class="row">
+
+							<div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Role</label>
+                                        <select name="roleId" id="roleId" class="form-control">
+										<option value="2">Admin</option>
+										<option value="4">Account Manager</option>			
+
+										</select>
+                                    </div>
+                                </div>
+							</div>
+
 							
                         </div><!-- /.box-body -->
     

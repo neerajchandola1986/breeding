@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Greg Broderick : Login</title>
+    <title>Greg Broderick : Forgot Password</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 	<link rel="icon" href="<?php echo base_url(); ?>assets/images/favicon.png" sizes="32x32" />
     <link href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -34,7 +34,7 @@
 		</h1>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Sign In</p>
+        <p class="login-box-msg">Forgot Password</p>
         <?php $this->load->helper('form'); ?>
         <div class="row">
             <div class="col-md-12">
@@ -62,25 +62,22 @@
             </div>
         <?php } ?>
         
-        <form action="<?php echo base_url(); ?>adminloginMe" method="post">
+        <form action="<?php echo base_url(); ?>login/forgot_password" method="post">
           <div class="form-group has-feedback">
             <input type="email" class="form-control" placeholder="Email" name="email" required />
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
-          <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Password" name="password" required />
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-          </div>
+         
           <div class="row">
-            <div class="col-xs-8">    
-                                  
-            </div><!-- /.col -->
+            <div class="col-xs-8"> 
+			</div>
+              
             <div class="col-xs-4">
-              <input type="submit" class="btn btn-primary btn-block btn-flat" value="Sign In" />
+              <input type="submit" class="btn btn-primary btn-block btn-flat" value="Submit" />
             </div><!-- /.col -->
           </div>
         </form>
-       <a href="<?php echo base_url() ?>/login/forgot_password">Forgot Password</a>
+		<a href="<?php echo base_url() ?>">Sign In</a>
         
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->

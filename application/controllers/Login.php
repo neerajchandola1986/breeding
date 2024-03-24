@@ -1,4 +1,10 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
+require 'phpmailer/PHPMailerAutoload.php';
+define('SMTP_SERVER', 'smtp.hostinger.com');
+define('SMTP_USER', 'info@ittechsolution.in');
+define('SMTP_PASSWD', 'Welcome!1');
+define('SMTP_PORT', '465');
+define('EMAIL_FROM', 'chandola.neeraj@gmail.com');
 
 /**
  * Class : Login (LoginController)
@@ -108,7 +114,7 @@ class Login extends CI_Controller
     /**
      * This function used to load forgot password view
      */
-    public function forgotPassword()
+    public function forgot_password()
     {
 		if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
@@ -117,27 +123,180 @@ class Login extends CI_Controller
 				if ($this->form_validation->run() == TRUE)
 				{
 					    $userdetails = geruser_info_email(trim($this->input->post('email')));
-						$from = 'trace.result@utrace.org';
-						$headers  = 'MIME-Version: 1.0' . "\r\n";
-						$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-						$headers .= 'From: '.$from."\r\n".
-							'Reply-To: '.$from."\r\n" .
-							'X-Mailer: PHP/' . phpversion();
-						$blog_title = base_url();
-						$blog_title_footer = base_url();
-						$admin_email = $from;
-						$email_subject = "Retreive Password Successfully";
+					if(count($userdetails)==0)
+					{
+						$this->session->set_flashdata('error','Invalid Email Address');
+						redirect("/login/forgot_password");
+					}
+
+					$email = trim($this->input->post('email'));
+						
+						
 						$emailtext = "Hi ".$userdetails[0]->name.",<br><br>Below are the login details.";
 						$emailtext .= "<br><br>Email : ".trim($this->input->post('email'))."<br>Password : ".base64_decode($userdetails[0]->password)."<br>";
-						$body ="<html><body style='color:#0e0e0e; font-size:11px; font-family:Tahoma, Geneva, sans-serif;'> <center><div style='border:1px solid #e2e1dd; border-bottom:none; margin:0; padding:0; width:650px;'> <table width='100%' border='1' cellspacing='0' cellpadding='10'> <tr> <td width='100%' align='left' valign='middle' height='100' style='background-color:#000'><img src='".base_url()."assets/images/whatdata_sd2a.png' alt='utrace' height='80px'></td></tr> <tr> <td colspan='2' align='center' valign='top' style='font-size:18px; color:#ffffff; font-family:Tahoma, Geneva, sans-serif; line-height:22px; background-color:#4e545d; padding:7px 0; text-transform:uppercase;'><strong>".$email_subject."</strong></td> </tr> <tr> <td colspan='2' align='left' valign='top' style='font-size:12px;color:#0e0e0e; font-family:Tahoma, Geneva, sans-serif; line-height:20px;'><div style='margin:0; padding:0;'> <div style='margin:0; padding:0; line-height:20px;'>".$emailtext."</div>  <div style='font-family:Tahoma, Geneva, sans-serif; color:#010101; font-size:11px; line-height:22px;border-top:1px solid #e2e1dd; '><br><strong>Email:</strong> <a href='mailto:contact@utrace.org' style='color:#0f626e; text-decoration:none; cursor:pointer;'>contact@utrace.org</a><br> <strong>Website:</strong> <a href='".$blog_title."' target='_blank' style='color:#0f626e; text-decoration:none; cursor:pointer;'>".$blog_title."</a></div> </div></td> </tr> <tr> <td colspan='2' align='center' valign='top' style='font-size:11px; color:#ebeae8; font-family:Tahoma, Geneva, sans-serif; line-height:1.2em; background-color:#010101; padding:5px 0 5px 0; height:24px;'>Copyright &copy; ".date("Y")." <a href='".$blog_title."' target='_blank' style='color:#ebeae8; text-decoration:none; cursor:pointer;'>".$blog_title_footer."</a>. All rights reserved.</td> </tr> </table> </div> </center></body> </html>";
-						@mail($this->input->post('email'),$email_subject,$body,$headers);
-						@mail("chandola.neeraj@gmail.com","Retreive Password Successfully",$body,$headers);
+
+
+						$subject = "Greg Broderick : Retreive Password";
+		$message = '
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                      <title></title>  
+                    </head>
+                    <body bgcolor="#A2A2A2">
+                      <table cellpadding="0" cellpadding="0" width="100%" bgcolor="#a2a2a2">
+                        <tr>
+                          <td height="70"></td>
+                        </tr>
+                        <tr>
+                          <td class="middle" align="center">
+                              
+
+                          <table cellspacing="0" cellpadding="0" width="700" bgcolor="#ffffff" style="border-radius:10px;overflow:hidden;">
+                            <tr>
+                              <td>
+
+        			 
+                                  <table cellpadding="0" cellspacing="0" width="700" bgcolor="#e6e6e6">
+                                    <tr>
+                                      <td colspan="5" height="20"></td>
+                                    </tr>
+                                    <tr>
+                                      <td width="50"></td>
+                                      <td width="200"></td>
+                                      <td width="100" align="center">
+                                        
+										<img src="https://ittechsolution.in/breeding/assets/images/favicon.png" class="logo" width="100">
+                                      </td>
+                                      <td width="200" valign="top" align="right" style="font-family: Arial;font-size:25px;">
+                                        
+                                      </td>
+                                      <td width="50"></td>
+                                    </tr>
+                                    <tr>
+                                      <td colspan="5" height="20"></td>
+                                    </tr>
+                                  </table>
+					<!-- Email Header - End -->
+
+
+                    <!-- Subject Line Banner - Start-->
+                                  <table cellpadding="0" cellspacing="0" width="700" bgcolor="#1B3665"><!-- Dark Blue -->
+                                    <tr><td height="30"></td></tr>
+                                    <tr>
+                                      <td width="700" align="center" style="font-family: Arial;font-size:20px;color:#ffffff;">
+                                          '.$subject.'
+                                      </td>              
+                                    </tr>
+                                    <tr><td height="18"></td></tr>
+                                  </table>
+								  <table cellpadding="0" cellspacing="0" width="700" bgcolor="#ffffff">
+                                          <tr><td colspan="3" height="20"></td></tr>
+                                          <tr>
+                                            <td width="50"></td>
+                                            <td width="600"> 
+                                              
+                                                                    
+                                              <p style="font-family: Arial;font-size:15px;line-height:24px;">
+                                               '.$emailtext.'
+                                              </p>
+
+                                              
+                                            </td>
+                                            <td width="50"></td>
+                                          </tr>
+                                          <tr><td colspan="3" height="10"></td></tr>
+                                          <tr>
+                                            <td width="50"></td>
+                                            <td width="600">
+                                        
+
+                                            </td>              
+                                            <td width="50"></td>
+                                          </tr>
+
+                                          <tr><td colspan="3" height="50"></td></tr>            
+                                        </table>
+
+
+
+
+                                     <!-- Email Footer Starts-->
+
+									 <!--Grey Box -->
+                                     <table cellpadding="0" cellspacing="0" width="700" bgcolor="grey">
+
+									 <!--Thin Red line -->
+                                      <tr><td height="4" bgcolor="#DC323C"></td></tr>
+                                      <tr><td height="30"></td></tr>
+                                      
+                                     
+                                     <!-- --> 
+                                      <tr>
+                                        <td height="6"></td><!--Grey Box Height--> 
+                                      </tr>
+                                      <tr>
+                                        <td width="700" align="center" style="font-family: Arial;color:#000000;font-size:12px;">
+                                           &#x00A9; 2024 Greg Broderick. All rights reserved.
+                                        </td>
+                                      </tr>
+                                      <tr><td height="15"></td></tr>
+                                    </table>
+
+
+                              
+                              </td>
+                            </tr>
+                          </table>
+
+
+
+
+                          </td>
+                        </tr>
+                        <tr>
+                          <td height="70"></td>
+                        </tr>
+                      </table>
+                    </body>
+                    </html>
+                    ';	
+					
+					
+
+					$mail= new PHPMailer();
+					
+					//$email = 'chitranshravi1@gmail.com';
+					
+					$headers = "MIME-Version: 1.0\r\n";
+					$headers .= "Content-Type: text/html; charset=UTF-8\r\n";  
+					$mail->isSMTP();
+					$mail->Host     = SMTP_SERVER;
+					//$mail->SMTPDebug  = 2;  
+					$mail->SMTPAuth = true;
+					$mail->Username = SMTP_USER;
+					$mail->Password = SMTP_PASSWD;
+					$mail->SMTPSecure = 'ssl';
+					$mail->Port     = SMTP_PORT;
+					$mail->setFrom(SMTP_USER,"Greg Broderick");
+					$mail->addAddress($email);	
+					$mail->Subject = $subject;
+					$mail->isHTML(true);
+					$mail->CharSet="utf-8";
+					$mail->Body = $message;
+					$mail->send();
+
+					//echo $message;
+
+					///////////////// Send EMail End ////////////////
+					$this->session->set_flashdata('success',"Login details sent to registered email successfully.");
+					redirect(base_url());
+
 				}
-				$this->session->set_flashdata('success',"Login details sent to registered email successfully.");
-				redirect(base_url().'login');
+				
 				
 		}
-        $this->load->view('forgotPassword');
+        $this->load->view('forgot_password');
     }
     
     /**

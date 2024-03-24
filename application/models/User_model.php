@@ -46,6 +46,15 @@ class User_model extends CI_Model
         return $insert_id;
     }
 
+	function insert_stallion($userInfo)
+    {
+        $this->db->trans_start();
+        $this->db->insert('tbl_stallion', $userInfo);      
+        $insert_id = $this->db->insert_id();     
+        $this->db->trans_complete();     
+        return $insert_id;
+    }
+
 	function insert_reminder($userInfo)
     {
         $this->db->trans_start();
@@ -226,6 +235,12 @@ class User_model extends CI_Model
    		 return $this->db->update('tbl_category',$params);
 	}
 
+	function update_stallion($params = array(), $id = 0)
+    {
+		 $this->db->where('id',$id);
+   		 return $this->db->update('tbl_stallion',$params);
+	}
+
 	function update_reminder($params = array(), $id = 0)
     {
 		 $this->db->where('id',$id);
@@ -250,6 +265,11 @@ class User_model extends CI_Model
 	function delete_plan($id="")
 	{
 		$this->db->delete('tbl_category', array('id' => $id)); 
+	}
+
+	function delete_stallion($id="")
+	{
+		$this->db->delete('tbl_stallion', array('id' => $id)); 
 	}
 
 	function delete_reminder($id="")
@@ -292,6 +312,36 @@ class User_model extends CI_Model
         $result = $query->result();        
         return $result;
     }
+
+
+	function recordsStallionCount($searchText = '')
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_stallion');
+		if(!empty($searchText)) {
+            $likeCriteria = "(stallion  LIKE '%".$searchText."%')";
+            $this->db->where($likeCriteria);
+        }
+        $query = $this->db->get();     
+        return count($query->result());
+    }
+    
+    function recordsStallionListing($searchText = '', $page, $segment)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_stallion');
+        if(!empty($searchText)) {
+            $likeCriteria = "(stallion  LIKE '%".$searchText."%')";
+            $this->db->where($likeCriteria);
+        }
+        $this->db->limit($page, $segment);
+        $query = $this->db->get();
+        
+        $result = $query->result();        
+        return $result;
+    }
+
+
 
 	function reminderCount($searchText = '')
     {
@@ -966,10 +1016,11 @@ class User_model extends CI_Model
 	
 	function staffListingCount($searchText = '')
     {
+		$ids = array('3', '4');
         $this->db->select('BaseTbl.*');
         $this->db->from('tbl_users as BaseTbl');
         $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
-		$this->db->where('BaseTbl.roleId',3);
+		$this->db->where_in('BaseTbl.roleId',$ids);
 		if(!empty($searchText['searchText']) && $searchText['searchText'] !="") 
 		{
 			$likeCriteria = "(BaseTbl.name  LIKE '%".trim($searchText['searchText'])."%' OR BaseTbl.email  LIKE '%".trim($searchText['searchText'])."%')";
@@ -981,10 +1032,11 @@ class User_model extends CI_Model
     }
 	function staffListing($searchText = '', $page, $segment)
     {
+		$ids = array('3', '4');
         $this->db->select('BaseTbl.*');
         $this->db->from('tbl_users as BaseTbl');
         $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
-		$this->db->where('BaseTbl.roleId',3);
+		$this->db->where_in('BaseTbl.roleId',$ids);
 		if(!empty($searchText['searchText']) && $searchText['searchText'] !="") {
 			$likeCriteria = "(BaseTbl.name  LIKE '%".trim($searchText['searchText'])."%' OR BaseTbl.email  LIKE '%".trim($searchText['searchText'])."%')";
             $this->db->where($likeCriteria);

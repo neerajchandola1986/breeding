@@ -115,18 +115,29 @@
                 <span>Manage Staff</span>
               </a>
             </li>
-            <li class="treeview">
-              <a href="<?php echo base_url(); ?>records/userListing">
+			<li class="treeview">
+              <a href="<?php echo base_url(); ?>records/stallionlist">
                 <i class="fa fa-list"></i>
-                <span>Manage User</span>
+                <span>Manage Stallion</span>
               </a>
             </li>
+
+
+            
+			
             <?php } ?>
 
 			<li class="treeview">
               <a href="<?php echo base_url(); ?>records/bookingListing">
                 <i class="fa fa-list"></i>
-                <span>Manage Bookings</span>
+                <span>Bookings</span>
+              </a>
+            </li>
+
+			<li class="treeview">
+              <a href="<?php echo base_url(); ?>records/userListing">
+                <i class="fa fa-list"></i>
+                <span>Customers</span>
               </a>
             </li>
             

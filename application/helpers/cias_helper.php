@@ -186,6 +186,31 @@ function getplan_info($id = "")
 	return ($query->result());
 }
 
+function geruser_info_email($email = "")
+{
+	$ci =& get_instance(); 
+	$ci->load->database();
+	$sql = "SELECT * FROM `tbl_users` WHERE email='".$email."'"; 
+	$query = $ci->db->query($sql);
+	return ($query->result());
+}
+
+function getstallion_info($id = "")
+{
+	$ci =& get_instance(); 
+	$ci->load->database();
+	$sql = "SELECT * FROM `tbl_stallion` WHERE id='".$id."'"; 
+	$query = $ci->db->query($sql);
+	return ($query->result());
+}
+function getBooking_by_user_id($user_id = "")
+{
+	$ci =& get_instance(); 
+	$ci->load->database();
+	$sql = "SELECT * FROM `tbl_booking` WHERE user_id='".$user_id."'"; 
+	$query = $ci->db->query($sql);
+	return ($query->result());
+}
 
 
 function getuser_info($id = "")
@@ -209,11 +234,21 @@ function getproject_info($id = "")
 	return $data[0];
 }
 
-function getvolunteer_info($id = "")
+function getbooking_info($id = "")
 {
 	$ci =& get_instance(); 
 	$ci->load->database();
-	$sql = "SELECT * FROM `volunteer` WHERE p_id='".$id."'"; 
+	$sql = "SELECT * FROM `tbl_booking` WHERE id='".$id."'"; 
+	$query = $ci->db->query($sql);
+	$data = $query->result();
+	return $data;
+}
+
+function getorder_by_booking($booking_id = "")
+{
+	$ci =& get_instance(); 
+	$ci->load->database();
+	$sql = "SELECT * FROM `orders` WHERE booking_id='".$booking_id."'"; 
 	$query = $ci->db->query($sql);
 	$data = $query->result();
 	return $data;

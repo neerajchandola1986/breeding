@@ -60,7 +60,20 @@
 					  <td><?php echo $record->microchip_number ?></td>
 					  <td><?php echo $record->payment_type ?></td>
 					  <td><?php echo $record->payment_status ?></td>
-                <td class="text-center"><a class="btn btn-sm btn-info" href="javascript:void(0);<?php //echo base_url().'records/viewbooking/'.$record->id; ?>"><i class="fa fa-eye"></i></a></td>
+                <td class="text-center">
+				<table><tr>
+				<td>
+				<a class="btn btn-sm btn-info" href="<?php echo base_url().'records/view_booking/'.$record->id; ?>"><i class="fa fa-eye"></i></a></td>
+				<td>
+				<?php
+				if($record->payment_type=='Half Payment' && $record->payment_status=='Succeeded')
+				{
+				?>
+				&nbsp;<a class="btn btn-sm btn-info" href="<?php echo base_url().'records/invoice/'.$record->id; ?>">Invoice</a>&nbsp;
+				<?php
+				}
+				
+					?></td></tr></table></td>
               </tr>
               <?php
 

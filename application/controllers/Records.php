@@ -1,5 +1,6 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 require APPPATH . '/libraries/BaseController.php';
+
 /**
  * Class : User (UserController)
  * User Class to control all user related operations.
@@ -104,6 +105,30 @@ class Records extends BaseController
 			$data["links"] = $this->pagination->create_links();
 			$data["total_rows"] = $config["total_rows"];
         	$this->loadViews("planslist", $this->global, $data , NULL);
+    }
+
+	public function stallionlist()
+    {
+        	$searchText = array();
+			$this->load->model('user_model');
+            $searchText = $this->input->post('searchText');
+            $data['searchText'] = $searchText;
+			
+			$this->load->library('pagination');
+			//print_r($_REQUEST);
+			$config = array();
+			$config["base_url"] = base_url() . "records/stallionlist";
+			$config["total_rows"] = $this->user_model->recordsStallionCount($searchText);
+			$config["per_page"] = 200;
+			$config["uri_segment"] = 3;
+			$config['suffix'] = '?'.http_build_query($_REQUEST, '', "&");
+			$config['first_url'] = $config['base_url'].'?'.http_build_query($_REQUEST);
+			$this->pagination->initialize($config);
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			$data['userRecords'] = $this->user_model->recordsStallionListing($searchText,$config["per_page"], $page);
+			$data["links"] = $this->pagination->create_links();
+			$data["total_rows"] = $config["total_rows"];
+        	$this->loadViews("stallionlist", $this->global, $data , NULL);
     }
 	
 	
@@ -212,7 +237,82 @@ class Records extends BaseController
 		$this->loadViews("editplan", $this->global, $data , NULL);
 	}
 	
+	public function deletestallion($id)
+	{
+		if(!$this->session->userdata('userId'))
+		{
+			redirect(base_url());
+		}
+		if($id>0)
+		{
+		$userlist = $this->user_model->delete_stallion($id);
+		}
+		$this->session->set_flashdata('success',"Satallion deleted successfully.");
+		redirect(base_url().'records/stallionlist');
+	}
 	
+	
+	public function addstallion()
+	{
+		
+		if ($this->input->server('REQUEST_METHOD') === 'POST')
+        {
+			$data_to_store = array(
+					'stallion' => $this->input->post('stallion')
+			);		
+			$insertted_id = $this->user_model->insert_stallion($data_to_store);
+			$this->session->set_flashdata('success',"Stallion added successfully.");
+			redirect(base_url().'records/stallionlist');
+				
+		}
+		$this->global['pageTitle'] = 'Add Stallion';
+		$this->loadViews("addstallion", $this->global, $data , NULL);
+	}
+	
+	public function editstallion($id="")
+	{
+		$data['toedit_stallionid'] = $id;
+		if ($this->input->server('REQUEST_METHOD') === 'POST')
+        {
+				$data_to_store = array(
+					'stallion' => addslashes($this->input->post('stallion'))
+				);	
+				$insertted_id = $this->user_model->update_stallion($data_to_store,$id);
+				$this->session->set_flashdata('success',"Stallion edited successfully.");
+				redirect(base_url().'records/stallionlist');
+				
+		}
+		$this->global['pageTitle'] = 'Edit Stallion';
+		$this->loadViews("editstallion", $this->global, $data , NULL);
+	}
+	
+	public function view_booking($id)
+    {  	
+		$booking_info = getbooking_info($id);
+		$order_info = getorder_by_booking($booking_info[0]->id);
+		$user_info = getuser_info($booking_info[0]->user_id);
+		//prn($user_info);exit;
+		$data["booking_info"] = $booking_info[0];
+		$data["order_info"] = $order_info[0];
+		$data["user_info"] = $user_info;
+		$this->loadViews("viewbooking", $this->global, $data , NULL);
+
+		
+    }
+
+	public function invoice($id)
+    {  	
+		$booking_info = getbooking_info($id);
+		$order_info = getorder_by_booking($booking_info[0]->id);
+		$user_info = getuser_info($booking_info[0]->user_id);
+		//prn($user_info);exit;
+		$data["booking_info"] = $booking_info[0];
+		$data["order_info"] = $order_info[0];
+		$data["user_info"] = $user_info;
+		$this->loadViews("invoice", $this->global, $data , NULL);
+
+		
+    }
 	public function setting()
 	{
 		if ($this->input->server('REQUEST_METHOD') === 'POST')
@@ -309,6 +409,7 @@ class Records extends BaseController
 			$fname = ucwords(strtolower($this->input->post('fname')));
 			$lname = ucwords(strtolower($this->input->post('lname')));
 			$email = $this->input->post('email');
+			$roleId = $this->input->post('roleId');
 			//$password = rand(111111,999999);
 			$password = $this->input->post('password');
 			$roleId = 3;
@@ -321,7 +422,7 @@ class Records extends BaseController
 			$address2 = $this->input->post('address2');
 			$country = $this->input->post('country');
 			$ref = 1;              
-			$userInfo = array('email'=>$email, 'password'=>base64_encode($password), 'roleId'=>$roleId, 'name'=> $fname, 'last_name'=>$lname ,'mobile'=>$mobile, 'buisness_name'=>$buisness_name, 'suburb'=>$suburb, 'state_name'=>$state_name, 'postcode'=>$postcode, 'address' => addslashes($address), 'address2' => addslashes($address2), 'country' => $country, 'createdBy'=>$this->session->userdata('userId'), 'createdDtm'=>date('Y-m-d H:i:s'));
+			$userInfo = array('roleId'=>$roleId,'email'=>$email, 'password'=>base64_encode($password), 'roleId'=>$roleId, 'name'=> $fname, 'last_name'=>$lname ,'mobile'=>$mobile, 'buisness_name'=>$buisness_name, 'suburb'=>$suburb, 'state_name'=>$state_name, 'postcode'=>$postcode, 'address' => addslashes($address), 'address2' => addslashes($address2), 'country' => $country, 'createdBy'=>$this->session->userdata('userId'), 'createdDtm'=>date('Y-m-d H:i:s'));
 			$result_id_inserted = $this->user_model->addNewUser($userInfo);
 			############################################			
 			$this->session->set_flashdata('success', 'New staff member created successfully');
@@ -389,6 +490,7 @@ class Records extends BaseController
 		
 		if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
+			$roleId = $this->input->post('roleId');
 			$fname = (($this->input->post('fname')));
 			$lname = (($this->input->post('lname')));
 			$mobile = $this->input->post('mobile'); 
@@ -402,6 +504,7 @@ class Records extends BaseController
 			$address2 = $this->input->post('address2');
 			$country = $this->input->post('country');
 			$userInfo = array(
+				'roleId' => $roleId,
 				'name' => $fname,
 				'last_name' => $lname,
 				'mobile' => $mobile,

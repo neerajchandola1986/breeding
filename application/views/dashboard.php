@@ -36,6 +36,8 @@
 
 		
 			<div class="box-body table-responsive no-padding" style="min-height:150px;">
+			<span style="font-weight:bold;">Last 5 (<a href="<?php echo base_url('records/userListing');?>">See All</a>)<br>&nbsp;</span>
+
             <table class="table table-hover" style="overflow:scroll; font-size:12px;">
               <tr>
                 <th>Id</th>
@@ -94,6 +96,8 @@
 
 		
 			<div class="box-body table-responsive no-padding" style="min-height:150px;">
+			<span style="font-weight:bold;">Last 5 (<a href="<?php echo base_url('records/staffListing');?>">See All</a>)<br>&nbsp;</span>
+
             <table class="table table-hover" style="overflow:scroll; font-size:12px;">
               <tr>
                 <th>Id</th>
@@ -163,16 +167,18 @@
           </div>
 
 		  <div class="box-body table-responsive no-padding">
-
-		  <table class="table table-hover" style="overflow:scroll; font-size:12px;">
+		  <span style="font-weight:bold;">Last 5 (<a href="<?php echo base_url('records/bookingListing');?>">See All</a>)<br>&nbsp;</span>
+		  
+		  <table class="table table-hover" style="overflow:scroll; font-size:12px;"> 
                     <tr>
                       <th>S.No.</th>                      
-                      <th>Date</th>
+                      <th>Booking Date</th>
 					  <th>Booking Type</th>
 					  <th>Stallion</th>
                       <th>Mare Name</th>
 					  <th>Microchip Number</th>
 					  <th>Payment Type</th>
+					  <th>Payment Status</th>
 					     
                     </tr> 
                     <?php
@@ -196,6 +202,7 @@
 					  <td><?php echo $record->mare_name ?></td>
 					  <td><?php echo $record->microchip_number ?></td>
 					  <td><?php echo $record->payment_type ?></td>
+					  <td><?php echo $record->payment_status ?></td>
 					    
 					  
                               

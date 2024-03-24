@@ -136,6 +136,20 @@
                             </div>
 
 							<div class="row">
+								<div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Role</label>
+                                        <select name="roleId" id="roleId" class="form-control">
+										<option value="3" <?php echo (($userdata->roleId==3)?'selected':'');?> >Admin</option>
+										<option value="4" <?php echo (($userdata->roleId==4)?'selected':'');?>>Account Manager</option>
+										
+
+										</select>
+                                    </div>
+                                </div>
+
+
+							
                                
                                 
                                 <div class="col-md-6">

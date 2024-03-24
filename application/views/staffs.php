@@ -32,7 +32,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Mobile</th>
-                <!-- <th>Password</th> -->
+                <th>Role</th>
                 <th>Status</th>
                 <th class="text-center">Actions</th>
               </tr>
@@ -53,7 +53,13 @@
                 <td><?php echo $record->name ?> <?php echo $record->last_name ?></td>
                 <td><?php echo $record->email ?></td>
                 <td><?php echo $record->mobile ?></td>
-                <!-- <td><?php echo base64_decode($record->password) ?></td> -->
+                <td><?php 
+				$role = 'Admin';
+				if($record->roleId == '4')
+							{
+					$role = 'Account Manager';
+							}
+					echo $role; ?></td>
                 <td><?php echo ($record->isDeleted == 0)?'Active':'In Active' ?></td>
                 <td class="text-center"><a class="btn btn-sm btn-info" href="<?php echo base_url().'records/editstaff/'.$record->userId; ?>"><i class="fa fa-pencil"></i></a> <a class="btn btn-sm btn-danger" href="<?php echo base_url().'records/deletestaff/'.$record->userId; ?>" onclick="return confirm('Are you sure to delete this staff ?')"><i class="fa fa-trash"></i></a></td>
               </tr>
