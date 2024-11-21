@@ -66,15 +66,12 @@
 				<a class="btn btn-sm btn-info" href="<?php echo base_url().'records/view_booking/'.$record->id; ?>"><i class="fa fa-eye"></i></a></td>
 				<td>
 				<?php
-				$para = 2;
-				if($record->payment_type=='Half Payment')
+				if($record->payment_type=='Half Payment' && $record->payment_status=='Succeeded')
 				{
-						$para = 1;
-				}
 				?>
-				&nbsp;<a class="btn btn-sm btn-info" href="<?php echo base_url().'records/invoice/'.$record->id.'/'.$para; ?>">Invoice</a>&nbsp;
+				&nbsp;<a class="btn btn-sm btn-info" href="<?php echo base_url().'records/invoice/'.$record->id; ?>">Invoice</a>&nbsp;
 				<?php
-				
+				}
 				
 					?></td></tr></table></td>
               </tr>
